@@ -1,0 +1,91 @@
+package org.example.view;
+
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import org.example.App;
+import org.example.dao.UsuarioDao;
+import org.example.entities.Usuario;
+
+import java.io.IOException;
+import java.net.URL;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
+
+public class RegisterController extends Controller implements Initializable {
+
+    @FXML
+    Button button;
+
+    @FXML
+    TextField textFieldcorreo;
+
+    @FXML
+    TextField textFieldusuario;
+
+    @FXML
+    PasswordField passwordField;
+
+    @FXML
+    PasswordField confirmPassword;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+    }
+
+    @Override
+    public void onOpen(Object input) throws IOException {
+
+    }
+    @FXML
+    public Usuario recogerDatos() throws IOException {
+        String correoIngresado = textFieldcorreo.getText().trim();
+        String usuarioIngresado = textFieldusuario.getText().trim();
+        String contraseniaIngresada = passwordField.getText();
+        String contraseniaConfirmada = confirmPassword.getText();
+
+        if (usuarioIngresado.isEmpty() || contraseniaIngresada.isEmpty() || correoIngresado.isEmpty() || contraseniaConfirmada.isEmpty()) {
+            throw new IOException("Todos los campos son obligatorios");
+        }
+        if (!correoIngresado.contains("@") || !correoIngresado.contains(".")) {
+            throw new IOException("El correo ingresado no es válido");
+        }
+        if (!contraseniaIngresada.equals(contraseniaConfirmada)) {
+            throw new IOException("Las contraseñas no coinciden");
+        }
+        UsuarioDao usuarioDao = new UsuarioDao();
+        ArrayList<Usuario> usuarios = usuarioDao.obtenerUsuarios();
+
+        for (Usuario user : usuarios) {
+            if (user.getNombre().equals(usuarioIngresado)) {
+                throw new IOException("El usuario ya existe");
+            }
+        }
+
+        Usuario nuevoUsuario = new Usuario();
+        nuevoUsuario.setEmail(correoIngresado);
+        nuevoUsuario.setNombre(usuarioIngresado);
+        nuevoUsuario.setContraseña(contraseniaIngresada);
+        nuevoUsuario.setFechaRegistro(LocalDate.now());
+
+        return nuevoUsuario;
+    }
+
+    @FXML
+    public void botonRegistar() {
+        try {
+            Usuario nuevoUsuario = recogerDatos();
+            UsuarioDao usuarioDao = new UsuarioDao();
+            usuarioDao.insertarUsuario(nuevoUsuario);
+            System.out.println("Usuario registrado con éxito");
+            App.currentController.changeScene(Scenes.LOGIN, null);
+        } catch (IOException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+}
