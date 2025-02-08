@@ -83,7 +83,7 @@ public class Habito {
     }
 
     public Habito(Usuario usuario, Actividad actividad, Integer frecuencia, String tipo, LocalDate ultimaFecha) {
-        this.id = new HabitoId(usuario.getId(), actividad.getIdActividad()); // Inicializa el ID compuesto
+        this.id = new HabitoId(usuario.getId(), actividad.getIdActividad());
         this.idUsuario = usuario;
         this.idActividad = actividad;
         this.frecuencia = frecuencia;

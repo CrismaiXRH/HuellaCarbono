@@ -19,82 +19,16 @@ public class HuellaDao {
             transaction = session.beginTransaction();
             session.save(huella);
             transaction.commit();
-            System.out.println("✅ Huella guardada en la base de datos.");
+            System.out.println(" Huella guardada en la base de datos.");
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
             }
-            System.out.println("❌ Error al guardar huella: " + e.getMessage());
+            System.out.println(" Error al guardar huella: " + e.getMessage());
             e.printStackTrace();
         } finally {
             session.close();
         }
-    }
-
-    public void actualizarHuella(Huella huella) {
-        Session session = Connection.getInstance().getSession();
-        Transaction transaction = null;
-        try {
-            transaction = session.beginTransaction();
-            session.update(huella);
-            transaction.commit();
-        } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
-    }
-
-    public void borrarHuella(Huella huella) {
-        Session session = Connection.getInstance().getSession();
-        Transaction transaction = null;
-        try {
-            transaction = session.beginTransaction();
-            session.delete(huella);
-            transaction.commit();
-        } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
-    }
-
-    public Huella listarPorId(int id) {
-        Session session = Connection.getInstance().getSession();
-        Huella huella = null;
-        try {
-            huella = session.get(Huella.class, id);
-            if (huella != null) {
-                Hibernate.initialize(huella.getIdActividad().getIdCategoria());
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
-        return huella;
-    }
-
-    public List<Huella> listarTodas() {
-        Session session = Connection.getInstance().getSession();
-        List<Huella> huellas = null;
-        try {
-            huellas = session.createQuery("from Huella", Huella.class).list();
-            for (Huella huella : huellas) {
-                Hibernate.initialize(huella.getIdActividad().getIdCategoria());
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
-        return huellas;
     }
 
     public List<Huella> obtenerHuellasDelUsuarioConActividad(int usuarioId) {

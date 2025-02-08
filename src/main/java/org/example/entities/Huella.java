@@ -30,7 +30,6 @@ public class Huella {
     private LocalDate fecha;
 
     public Huella() {
-        // Default constructor
     }
 
     public Huella(Usuario idUsuario, Actividad idActividad, BigDecimal valor, String unidad, LocalDate fecha) {

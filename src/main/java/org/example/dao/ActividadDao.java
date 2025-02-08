@@ -58,18 +58,4 @@ public class ActividadDao {
         }
     }
 
-    public List<Huella> obtenerHuellasDelUsuarioConActividad(int usuarioId) {
-        Connection connection = Connection.getInstance();
-        Session session = connection.getSession();
-        session.beginTransaction();
-
-        String hql = "FROM Huella h JOIN FETCH h.idActividad WHERE h.idUsuario.id = :usuarioId";
-        Query<Huella> query = session.createQuery(hql, Huella.class);
-        query.setParameter("usuarioId", usuarioId);
-        List<Huella> huellas = query.list();
-
-        session.getTransaction().commit();
-        session.close();
-        return huellas;
-    }
 }

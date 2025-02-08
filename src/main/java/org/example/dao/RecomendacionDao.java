@@ -19,7 +19,6 @@ public class RecomendacionDao {
         try {
             transaction = session.beginTransaction();
 
-            // Consulta usando IN para filtrar por categorías
             Query<Recomendacion> query = session.createQuery(
                     "SELECT r FROM Recomendacion r JOIN FETCH r.idCategoria c WHERE c IN :categorias",
                     Recomendacion.class

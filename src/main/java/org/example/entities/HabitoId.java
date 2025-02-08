@@ -16,10 +16,8 @@ public class HabitoId implements Serializable {
     @Column(name = "id_actividad", nullable = false)
     private Integer idActividad;
 
-    // 🔹 Constructor vacío necesario para Hibernate
     public HabitoId() {}
 
-    // 🔹 Constructor con parámetros
     public HabitoId(Integer idUsuario, Integer idActividad) {
         this.idUsuario = idUsuario;
         this.idActividad = idActividad;

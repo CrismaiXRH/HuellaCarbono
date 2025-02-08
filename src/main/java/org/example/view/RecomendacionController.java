@@ -41,7 +41,6 @@ public class RecomendacionController extends Controller implements Initializable
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // Configuración de las columnas de la tabla
         descripcionColumn.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
         impactoColumn.setCellValueFactory(new PropertyValueFactory<>("impactoEstimado"));
     }
@@ -58,7 +57,6 @@ public class RecomendacionController extends Controller implements Initializable
         try (org.hibernate.Session session = org.example.session.Connection.getInstance().getSession()) {
             Transaction transaction = session.beginTransaction();
 
-            // Obtener los hábitos del usuario con carga temprana (EAGER FETCH)
             List<Habito> habitos = session.createQuery(
                     "SELECT h FROM Habito h JOIN FETCH h.idActividad a JOIN FETCH a.idCategoria WHERE h.idUsuario.id = :userId",
                     Habito.class
@@ -66,15 +64,13 @@ public class RecomendacionController extends Controller implements Initializable
 
             Set<Categoria> categorias = new HashSet<>();
             for (Habito habito : habitos) {
-                categorias.add(habito.getIdActividad().getIdCategoria()); // Categoría ya inicializada
+                categorias.add(habito.getIdActividad().getIdCategoria());
             }
 
             transaction.commit();
 
-            // Obtener recomendaciones basadas en las categorías
             List<Recomendacion> recomendaciones = recomendacionesServices.listarRecomendacionesPorCategorias(List.copyOf(categorias));
 
-            // Agregar las recomendaciones a la tabla
             recomendacionTable.getItems().setAll(recomendaciones);
         } catch (Exception e) {
             e.printStackTrace();

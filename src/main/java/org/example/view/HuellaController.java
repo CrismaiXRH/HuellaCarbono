@@ -28,7 +28,7 @@ public class HuellaController extends Controller implements Initializable {
     private TextField cantidadTextField;
 
     @FXML
-    private TextField valorTextField; // Este campo solo mostrará la unidad (kg, kWh, etc.)
+    private TextField valorTextField;
 
     @FXML
     private DatePicker fechaDatePicker;
@@ -60,7 +60,7 @@ public class HuellaController extends Controller implements Initializable {
                 Categoria categoria = actividad.getIdCategoria();
                 if (categoria != null) {
                     String unidad = categoria.getUnidad();
-                    valorTextField.setText(unidad); // Solo muestra la unidad
+                    valorTextField.setText(unidad);
                 }
             }
         }
@@ -76,7 +76,7 @@ public class HuellaController extends Controller implements Initializable {
             Usuario usuario = Session.getInstance().getUsuario();
             String actividadSeleccionada = huellaComboBox.getValue();
             String cantidadTexto = cantidadTextField.getText();
-            String unidad = valorTextField.getText(); // Solo unidad, no número
+            String unidad = valorTextField.getText();
             LocalDate fecha = fechaDatePicker.getValue();
 
             huellaServices.guardarHuella(usuario, actividadSeleccionada, cantidadTexto, unidad, fecha);
