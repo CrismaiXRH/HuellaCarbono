@@ -8,23 +8,37 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.view.informationController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.view.InformationController">
     <children>
-        <Text layoutX="847.0" layoutY="410.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hábitos del Usuario" textAlignment="CENTER" wrappingWidth="200">
+        <Text layoutX="611.0" layoutY="410.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hábitos del Usuario" textAlignment="CENTER" wrappingWidth="200">
             <font>
                 <Font size="24.0" />
             </font>
         </Text>
-      <TableView fx:id="habitsTable" layoutX="669.0" layoutY="454.0" prefHeight="200.0" prefWidth="533.0">
+      <TableView fx:id="habitsTable" layoutX="433.0" layoutY="454.0" prefHeight="200.0" prefWidth="533.0">
         <columns>
-          <TableColumn fx:id="frecuencyColumn" prefWidth="75.0" text="Frecuencia" />
-          <TableColumn fx:id="tipeColumn" prefWidth="75.0" text="Tipo" />
-            <TableColumn fx:id="lastdateColumn" prefWidth="130.39996337890625" text="Última fecha" />
+          <TableColumn fx:id="habitNameColumn" prefWidth="160.79998779296875" text="Habito" />
+          <TableColumn fx:id="frecuencyColumn" prefWidth="76.0" text="Frecuencia" />
+            <TableColumn fx:id="tipeColumn" prefWidth="140.0" text="Tipo" />
+            <TableColumn fx:id="lastdateColumn" prefWidth="157.60003662109375" text="Ultima fecha" />
         </columns>
       </TableView>
-        <Button fx:id="addHabitButton" layoutX="669.0" layoutY="671.0" mnemonicParsing="false" text="Añadir Hábito" />
-      <Button fx:id="logoutButton" layoutX="1136.0" layoutY="384.0" mnemonicParsing="false" text="Cerrar Sesión" />
-      <Button fx:id="consultarButton" layoutX="1136.0" layoutY="671.0" mnemonicParsing="false" text="Consultar" />
+        <Button fx:id="addHabitButton" layoutX="433.0" layoutY="671.0" mnemonicParsing="false" onAction="#añadirHabito" text="Añadir Hábito" />
+      <Button fx:id="consultarButton" layoutX="1085.0" layoutY="454.0" mnemonicParsing="false" text="Consultar" />
       <Accordion layoutX="845.0" layoutY="123.0" />
+      <TableView fx:id="footprintsTable" layoutX="1244.0" layoutY="454.0" prefHeight="200.0" prefWidth="430.0">
+        <columns>
+          <TableColumn fx:id="footprintNameColumn" prefWidth="160.0" text="Actividad" />
+          <TableColumn fx:id="footprintValueColumn" prefWidth="61.60009765625" text="Cantidad" />
+            <TableColumn fx:id="footprintUnitColumn" minWidth="5.5999755859375" prefWidth="118.39990234375" text="Magnitud" />
+            <TableColumn fx:id="footprintDateColumn" minWidth="0.0" prefWidth="90.4000244140625" text="Fecha" />
+        </columns>
+      </TableView>
+      <Button fx:id="addFootprintButton" layoutX="1586.0" layoutY="671.0" mnemonicParsing="false" text="Añadir Huella" />
+      <Text layoutX="1366.0" layoutY="410.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Huellas del Usuario" textAlignment="CENTER" wrappingWidth="200">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
     </children>
 </AnchorPane>

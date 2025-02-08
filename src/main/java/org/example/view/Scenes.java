@@ -7,7 +7,8 @@ public enum Scenes {
     PRIMARY("/org/example/view/primary.fxml"),
     LOGIN("/org/example/view/login.fxml"),
     REGISTER("/org/example/view/register.fxml"),
-    INFORMATION("/org/example/view/information.fxml");
+    INFORMATION("/org/example/view/information.fxml"),
+    HABIT("/org/example/view/anadirhabito.fxml");
 
     private String url;
 

@@ -3,17 +3,27 @@ package org.example.entities;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import org.hibernate.Hibernate;
-
+import java.io.Serializable;
 import java.util.Objects;
 
 @Embeddable
-public class HabitoId implements java.io.Serializable {
+public class HabitoId implements Serializable {
     private static final long serialVersionUID = -9008662247251218615L;
+
     @Column(name = "id_usuario", nullable = false)
     private Integer idUsuario;
 
     @Column(name = "id_actividad", nullable = false)
     private Integer idActividad;
+
+    // 🔹 Constructor vacío necesario para Hibernate
+    public HabitoId() {}
+
+    // 🔹 Constructor con parámetros
+    public HabitoId(Integer idUsuario, Integer idActividad) {
+        this.idUsuario = idUsuario;
+        this.idActividad = idActividad;
+    }
 
     public Integer getIdUsuario() {
         return idUsuario;
@@ -44,5 +54,4 @@ public class HabitoId implements java.io.Serializable {
     public int hashCode() {
         return Objects.hash(idActividad, idUsuario);
     }
-
 }

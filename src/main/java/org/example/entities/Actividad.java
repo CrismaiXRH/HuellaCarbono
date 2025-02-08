@@ -26,7 +26,7 @@ public class Actividad {
     @OneToMany(mappedBy = "idActividad")
     private Set<Huella> huellas = new LinkedHashSet<>();
 
-    public Integer getId() {
+    public Integer getIdActividad() {
         return id;
     }
 

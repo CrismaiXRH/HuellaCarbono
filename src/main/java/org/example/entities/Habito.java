@@ -30,6 +30,10 @@ public class Habito {
     @Column(name = "ultima_fecha", nullable = false)
     private LocalDate ultimaFecha;
 
+    public Habito() {
+
+    }
+
     public HabitoId getId() {
         return id;
     }
@@ -78,4 +82,12 @@ public class Habito {
         this.ultimaFecha = ultimaFecha;
     }
 
+    public Habito(Usuario usuario, Actividad actividad, Integer frecuencia, String tipo, LocalDate ultimaFecha) {
+        this.id = new HabitoId(usuario.getId(), actividad.getIdActividad()); // Inicializa el ID compuesto
+        this.idUsuario = usuario;
+        this.idActividad = actividad;
+        this.frecuencia = frecuencia;
+        this.tipo = tipo;
+        this.ultimaFecha = ultimaFecha;
+    }
 }

@@ -1,7 +1,6 @@
 package org.example.entities;
 
 import jakarta.persistence.*;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -29,6 +28,18 @@ public class Huella {
 
     @Column(name = "fecha", nullable = false)
     private LocalDate fecha;
+
+    public Huella() {
+        // Default constructor
+    }
+
+    public Huella(Usuario idUsuario, Actividad idActividad, BigDecimal valor, String unidad, LocalDate fecha) {
+        this.idUsuario = idUsuario;
+        this.idActividad = idActividad;
+        this.valor = valor;
+        this.unidad = unidad;
+        this.fecha = fecha;
+    }
 
     public Integer getId() {
         return id;
@@ -77,5 +88,4 @@ public class Huella {
     public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
-
 }

@@ -57,12 +57,23 @@ public class LoginController extends Controller implements Initializable {
         return null;
     }
 
-    @FXML void login() throws IOException {
-        recogerDatos();
-        if (recogerDatos() != null){
-            App.currentController.changeScene(Scenes.INFORMATION, recogerDatos());
+    @FXML
+    void login() throws IOException {
+        Usuario usuario = recogerDatos(); // Solo llamamos a recogerDatos() una vez
+
+        if (usuario != null) {
+            // 🔥 Guardamos el usuario en la sesión
+            org.example.session.Session.getInstance().login(usuario);
+
+            System.out.println("✅ Usuario logueado: " + usuario.getNombre());
+
+            // Cambiamos de escena pasando el usuario
+            App.currentController.changeScene(Scenes.INFORMATION, usuario);
+        } else {
+            System.out.println("❌ Usuario o contraseña incorrectos.");
         }
     }
+
     @FXML
     public void gotoRegister() throws IOException {
         App.currentController.changeScene(Scenes.REGISTER, null);
