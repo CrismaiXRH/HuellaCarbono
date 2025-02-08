@@ -121,4 +121,23 @@ public class HabitoDao {
 
         return habitos;
     }
+
+    public void eliminarHabito(Habito habito) {
+        Session session = Connection.getInstance().getSession();
+        Transaction transaction = null;
+
+        try {
+            transaction = session.beginTransaction();
+            session.delete(habito);
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+    }
+
 }

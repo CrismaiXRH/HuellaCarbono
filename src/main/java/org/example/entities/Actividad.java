@@ -1,7 +1,6 @@
 package org.example.entities;
 
 import jakarta.persistence.*;
-
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -65,5 +64,4 @@ public class Actividad {
     public void setHuellas(Set<Huella> huellas) {
         this.huellas = huellas;
     }
-
 }

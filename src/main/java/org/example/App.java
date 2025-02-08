@@ -29,8 +29,7 @@ public class App extends Application {
         stage.setScene(scene);
         stage.setMaximized(true);
         stage.show();
-    }
-
+        scene.getStylesheets().add(getClass().getResource("/org/example/view/styles.css").toExternalForm()); }
     public static void main(String[] args) {
         launch();
     }

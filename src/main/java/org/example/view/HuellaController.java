@@ -7,11 +7,10 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import org.example.App;
-import org.example.dao.ActividadDao;
-import org.example.dao.HuellaDao;
 import org.example.entities.Actividad;
-import org.example.entities.Huella;
+import org.example.entities.Categoria;
 import org.example.entities.Usuario;
+import org.example.services.HuellaServices;
 import org.example.session.Session;
 
 import java.io.IOException;
@@ -29,7 +28,7 @@ public class HuellaController extends Controller implements Initializable {
     private TextField cantidadTextField;
 
     @FXML
-    private TextField valorTextField;
+    private TextField valorTextField; // Este campo solo mostrará la unidad (kg, kWh, etc.)
 
     @FXML
     private DatePicker fechaDatePicker;
@@ -37,8 +36,7 @@ public class HuellaController extends Controller implements Initializable {
     @FXML
     private Button saveButton;
 
-    private final ActividadDao actividadDao = new ActividadDao();
-    private final HuellaDao huellaDao = new HuellaDao();
+    private final HuellaServices huellaServices = new HuellaServices();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -48,19 +46,22 @@ public class HuellaController extends Controller implements Initializable {
 
     @FXML
     private void cargarActividades() {
-        List<Actividad> actividades = actividadDao.obtenerTodasLasActividades();
+        List<Actividad> actividades = huellaServices.obtenerTodasLasActividades();
         for (Actividad actividad : actividades) {
             huellaComboBox.getItems().add(actividad.getNombre());
         }
     }
 
-    @FXML
-    private void actualizarValorTextField() {
+    public void actualizarValorTextField() {
         String actividadSeleccionada = huellaComboBox.getValue();
         if (actividadSeleccionada != null) {
-            Actividad actividad = actividadDao.obtenerActividad(actividadSeleccionada);
-            if (actividad != null && actividad.getIdCategoria() != null) {
-                valorTextField.setText(actividad.getIdCategoria().getUnidad());
+            Actividad actividad = huellaServices.obtenerActividadConCategoria(actividadSeleccionada);
+            if (actividad != null) {
+                Categoria categoria = actividad.getIdCategoria();
+                if (categoria != null) {
+                    String unidad = categoria.getUnidad();
+                    valorTextField.setText(unidad); // Solo muestra la unidad
+                }
             }
         }
     }
@@ -73,40 +74,17 @@ public class HuellaController extends Controller implements Initializable {
     public void guardarHuella() {
         try {
             Usuario usuario = Session.getInstance().getUsuario();
-            if (usuario == null) {
-                throw new Exception("❌ No hay usuario logueado.");
-            }
-
             String actividadSeleccionada = huellaComboBox.getValue();
             String cantidadTexto = cantidadTextField.getText();
-            String valorTexto = valorTextField.getText();
+            String unidad = valorTextField.getText(); // Solo unidad, no número
             LocalDate fecha = fechaDatePicker.getValue();
 
-            if (actividadSeleccionada == null || cantidadTexto.isEmpty() || valorTexto.isEmpty() || fecha == null) {
-                throw new Exception("❌ Todos los campos deben estar completos.");
-            }
-
-            double cantidad = Double.parseDouble(cantidadTexto);
-            if (cantidad <= 0) {
-                throw new Exception("❌ La cantidad debe ser un número positivo.");
-            }
-
-            Actividad actividad = actividadDao.obtenerActividad(actividadSeleccionada);
-            if (actividad == null) {
-                throw new Exception("❌ Actividad no encontrada.");
-            }
-
-            // 🔹 Se inicializa correctamente `Huella`
-            Huella nuevaHuella = new Huella(usuario, actividad, cantidad, valorTexto, fecha);
-
-            huellaDao.guardarHuella(nuevaHuella);
-
-            System.out.println("✅ Huella guardada exitosamente.");
+            huellaServices.guardarHuella(usuario, actividadSeleccionada, cantidadTexto, unidad, fecha);
 
             App.currentController.changeScene(Scenes.INFORMATION, Session.getInstance().getUsuario());
 
         } catch (Exception e) {
-            System.out.println("❌ Error al guardar la huella: " + e.getMessage());
+            System.out.println(" Error al guardar la huella: " + e.getMessage());
         }
     }
 }

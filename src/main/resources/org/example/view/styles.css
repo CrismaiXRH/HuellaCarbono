@@ -1,0 +1,105 @@
+/* styles.css */
+
+/* General styles */
+.root {
+    -fx-font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    -fx-background-color: linear-gradient(to bottom, #f4f4f4, #e0e0e0); /* Fondo con gradiente suave */
+    -fx-padding: 8px; /* Reducido padding general */
+}
+
+/* Text styles */
+.text {
+    -fx-font-size: 12px; /* Tamaño más pequeño */
+    -fx-text-fill: #333;
+}
+
+/* Button styles */
+.button {
+    -fx-background-color: #0078d7; /* Azul suave */
+    -fx-text-fill: white;
+    -fx-font-size: 12px; /* Reducido tamaño de fuente */
+    -fx-padding: 6px 12px; /* Reducido padding para botones */
+    -fx-background-radius: 4px;
+    -fx-border-radius: 4px;
+}
+
+.button:hover {
+    -fx-background-color: #005a9e;
+}
+
+.button:pressed {
+    -fx-background-color: #003f6b;
+}
+
+/* Table styles */
+.table-view {
+    -fx-background-color: white;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 1px;
+    -fx-border-radius: 4px;
+    -fx-padding: 4px; /* Reducido padding para la tabla */
+    -fx-effect: dropshadow(gaussian, #999999, 5, 0.5, 0, 2, 2); /* Sombra suave para resaltar la tabla */
+}
+
+.table-column-header {
+    -fx-background-color: #0078d7;
+    -fx-text-fill: white;
+    -fx-font-size: 12px; /* Reducido tamaño de fuente */
+    -fx-padding: 4px 8px; /* Reducido padding */
+}
+
+.table-cell {
+    -fx-padding: 4px; /* Reducido padding para las celdas */
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 0 0 1px 0;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #f4f4f4;
+}
+
+.table-row-cell:even {
+    -fx-background-color: white;
+}
+
+/* ComboBox styles */
+.combo-box {
+    -fx-background-color: white;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 4px;
+    -fx-padding: 4px 8px; /* Reducido padding */
+}
+
+.combo-box .list-cell {
+    -fx-padding: 4px 8px;
+    -fx-font-size: 12px; /* Reducido tamaño de fuente */
+}
+
+/* DatePicker styles */
+.date-picker {
+    -fx-background-color: white;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 4px;
+    -fx-padding: 4px 8px;
+}
+
+/* TextField styles */
+.text-field {
+    -fx-background-color: white;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 4px;
+    -fx-padding: 4px 8px; /* Reducido padding */
+    -fx-font-size: 12px; /* Reducido tamaño de fuente */
+}
+
+/* Label styles */
+.label {
+    -fx-font-size: 12px; /* Reducido tamaño de fuente */
+    -fx-text-fill: #333;
+}
+
+/* Scene styles */
+.scene {
+    -fx-padding: 8px; /* Reducido padding para la escena */
+    -fx-background-color: linear-gradient(to bottom, #f4f4f4, #e0e0e0); /* Fondo suave */
+}
